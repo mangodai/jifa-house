@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+    <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,8 +52,13 @@
             var layEvent = obj.event;
             var tr = obj.tr;
             var currPage = dt.config.page.curr;
-            
-            if(layEvent === 'delete'){
+            if (layEvent === 'info') {
+                console.log(data.oID)
+                layer.open({
+                    title: '租房提示',
+                    content: data.alertTime != undefined ? data.alertTime : ""
+                });
+            } else if(layEvent === 'delete'){
             	console.log(data.oID)
                 layer.confirm('确认删除当前数据吗？',{icon:5,shade:0.1},function(index){
                     $.post("deleteOrder",{oID:data.oID},function(success){
@@ -71,7 +76,8 @@
     });
 </script>
 <script type="text/html" id="tools">
-    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</a>
+    <a class="layui-btn layui-btn-xs layui-btn-info" lay-event="info">提醒</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">退租</a>
 </script>
 </body>
 </html>

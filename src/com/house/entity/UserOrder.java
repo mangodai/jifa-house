@@ -19,6 +19,16 @@ public class UserOrder {
 	private String houseLinkMan;
 	private String houseOriented;
 
+	private String alertTime;
+
+	public String getAlertTime() {
+		return alertTime;
+	}
+
+	public void setAlertTime(String alertTime) {
+		this.alertTime = alertTime;
+	}
+
 	public int getoID() {
 		return oID;
 	}
