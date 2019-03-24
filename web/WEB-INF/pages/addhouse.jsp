@@ -48,6 +48,7 @@
                     <option value=""></option>
                     <option value="整租">整租</option>
                     <option value="合租">合租</option>
+                    <option value="出售">出售</option>
                 </select>
             </div>
         </div>
@@ -100,6 +101,8 @@
             </div>
         </div>
         <input type="hidden" name="houseImage" id="houseImage">
+        <input type="hidden" name="houseDetailsImg" id="houseDetailsImg">
+
         
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
             <legend>上传多张详细图片</legend>
@@ -194,6 +197,8 @@
             }
             ,done: function(res, index, upload){
                 if(res.code == 0){ //上传成功
+                    console.log(res);
+                    $("#houseDetailsImg").val(res.detailImg);
                     var tr = demoListView.find('tr#upload-'+ index)
                         ,tds = tr.children();
                     tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');

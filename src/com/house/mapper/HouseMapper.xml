@@ -33,6 +33,7 @@
 			house_image
 		FROM
 			t_house
+		order by h_id desc
 	</select>
 	
 	<!-- 房屋详细信息 -->
@@ -81,7 +82,7 @@
 	
 	<!-- 查找用户发布的房源信息 -->
 	<select id="findHouseByUser" parameterType="com.house.entity.Page" resultMap="BasicMap">
-		select * from t_house where publisher = #{publisher} limit #{page},#{limit}
+		select * from t_house where publisher = #{publisher} order by h_id desc limit #{page},#{limit}
 	</select>
 	
 	<!-- 删除用户发布的房源信息 -->
@@ -118,13 +119,14 @@
 				h.house_desc,
 				h.house_model
 			) LIKE CONCAT("%", #{keywords}, "%")
+		order by h_id desc
 	</select>
 	
 	<select id="findHouseOrderByDesc" resultMap="BasicMap">
-		SELECT * FROM t_house h ORDER BY house_price DESC
+		SELECT * FROM t_house h ORDER BY h_id DESC
 	</select>
 	
 	<select id="findHouseOrderByAsc" resultMap="BasicMap">
-		SELECT * FROM t_house h ORDER BY house_price ASC
+		SELECT * FROM t_house h ORDER BY h_id ASC
 	</select>
 </mapper>

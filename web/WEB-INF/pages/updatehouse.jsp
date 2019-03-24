@@ -49,6 +49,7 @@
                     <option value=""></option>
                     <option value="整租"<c:if test="${House.houseType == '整租'}"> selected</c:if>>整租</option>
                     <option value="合租"<c:if test="${House.houseType == '合租'}"> selected</c:if>>合租</option>
+                    <option value="出售"<c:if test="${House.houseType == '出售'}"> selected</c:if>>出售</option>
                 </select>
             </div>
         </div>

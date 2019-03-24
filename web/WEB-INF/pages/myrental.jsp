@@ -25,6 +25,8 @@
         var dt = table.render({
             elem:"#houseList",
             url:"/findUserHouse",
+            toolbar: true,
+            defaultToolbar: ['filter', 'print', 'exports'],
             page:true,
             cols:[[
                 {field: 'hID', title: '序号', align: 'center'},

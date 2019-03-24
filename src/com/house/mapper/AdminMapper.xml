@@ -40,11 +40,11 @@
 	
 	<!-- 查询所有用户 -->
 	<select id="findAllUser" resultMap="AllUserMap">
-		select * from t_users 
+		select * from t_users  order by id desc
 	</select>
 	
 	<select id="findAllHouse" resultMap="AllHouseMap" parameterType="com.house.entity.Page">
-		select * from t_house limit #{page},#{limit}
+		select * from t_house order by id desc limit #{page},#{limit}
 	</select>
 	
 	<delete id="deleteHouse" parameterType="int">

@@ -31,6 +31,11 @@ public class AddHouseController {
 	public Map<String, Object> upload(@RequestParam("file") List<MultipartFile> file, HttpServletRequest req) {
 		Map<String, Object> map = new HashMap<String,Object>();
         String dirPath = req.getServletContext().getRealPath("/file/");
+		String tmp = (String) req.getSession().getAttribute(IMGS);
+		if (tmp == null) {
+			tmp = "";
+		}
+		StringBuffer sb = new StringBuffer(tmp);
 		if (!file.isEmpty() && file.size() > 0) {
 			for (MultipartFile f : file) {
 				try {
@@ -44,18 +49,26 @@ public class AddHouseController {
 					//上传
                     File actualFile = new File(dirPath + filename);
                     f.transferTo(actualFile);
+					sb.append("/file/");
+					sb.append(filename);
+					sb.append("~");
                     System.out.println("update file , path : " + actualFile.getAbsolutePath());
 				} catch (Exception e) {
 					map.put("code", 1);
 					map.put("msg", "上传失败");
+					map.put("detailImg", sb.toString());
 					e.printStackTrace();
 				}
 			}
+			map.put("detailImg", sb.toString());
 			map.put("code", 0);
 			map.put("msg", "上传成功");
 		}
+		req.getSession().setAttribute(IMGS, sb.toString());
 		return map;
 	}
+
+	final static String IMGS = "detailImages";
 
 	@RequestMapping("/singleUpload")
 	@ResponseBody
@@ -87,24 +100,24 @@ public class AddHouseController {
 	}
 	
 	@RequestMapping("/addHouse")
-	public String addHouse() {
+	public String addHouse( HttpServletRequest req) {
 		return "addhouse.jsp";
 	}
 	
 	@RequestMapping("/addHouseRecord")
 	@ResponseBody
-	public String addHouse(House house) {
+	public String addHouse(House house, HttpServletRequest req) {
 		if(house.getPublisher()==null||"".equals(house.getPublisher())) {
 			house.setPublisher("管理员");
 		}
-        if (house.getHouseDetailsImg() == null) {
-            house.setHouseDetailsImg("");
-        }
-        if (house.getHouseImage() == null) {
+		if (house.getHouseDetailsImg() == null) {
+			house.setHouseDetailsImg("");
+		}
+		if (house.getHouseImage() == null) {
             house.setHouseImage("");
         }
 		int n = service.addNewHouse(house);
-
+		req.getSession().removeAttribute(IMGS);
 		if(n>0) {
 //			detailsPath.delete(0,detailsPath.length());
 			return "OK";
