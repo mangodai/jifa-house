@@ -21,6 +21,7 @@
 			<mvc:exclude-mapping path="/css/**" />
 			<mvc:exclude-mapping path="/img/**" />
 			<mvc:exclude-mapping path="/layui/**" />
+			<mvc:exclude-mapping path="/file/**" />
 			<bean class="com.house.interceptor.UserInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
@@ -31,6 +32,7 @@
 	<mvc:resources location="/layui/" mapping="/layui/**"></mvc:resources>
 	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
 	<mvc:resources location="/img/" mapping="/img/**"></mvc:resources>
+	<mvc:resources location="/file/" mapping="/file/**"></mvc:resources>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/pages/" />
